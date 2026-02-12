@@ -482,6 +482,7 @@ local GetProperties = {}
 
 GetProperties.GUI = function(instance)
 	return {
+		Name = instance.Name,
 		Visible = instance.Visible
 	}
 end
