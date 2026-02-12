@@ -3,7 +3,7 @@ Allows the serialization of any group of Instances into Polytoria lua code.
 
 ## Usage:
 - Create a new LocalScript or Script in Polytoria Creator and paste the [Instance2Lua code](Instance2Lua.lua) code into it
-- Adjust settings in the `CONFIG` table at the top of the script to choose a target Instance to convert
+- Adjust settings in the Config table at the top of the script to choose a target Instance to convert
 - Start a local play test and click into the window when done loading to ensure the game is actively focused
 - Wait for the instructions on screen to change and press `Ctrl + X` to copy the outputted code
 
@@ -19,4 +19,6 @@ Allows the serialization of any group of Instances into Polytoria lua code.
 ## In case of script errors
 Please [create an issue](https://github.com/geringverdien/Polytoria-Instance2Lua/issues) if you encounter any bugs with the script. In *most cases* this will be due to either a **game update** or an **invalid property entry** that I missed
 
-An uncopylocked place containing the code can be found [here](https://polytoria.com/places/87647)
+
+## Building
+To build the bundled script file, install [polybundle](geringverdien/PolyBundle) via `npm install -g polybundle` and run the `build.bat` script
