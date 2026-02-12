@@ -1405,7 +1405,7 @@ local function serializeHierarchy(instance, instanceType, customName, parentName
     local code = ""
     local declaration = CONFIG.LocalVars and "local " or ""
 
-	code = code .. string.format("%s%s = Instance.new(\"%s\");", declaration, customName, instanceType) .. (CONFIG.Minify and "" or "\n")
+	code = code .. string.format("%s%s = Instance.New(\"%s\");", declaration, customName, instanceType) .. (CONFIG.Minify and "" or "\n")
     code = code .. serializeInstance(instance, instanceType, customName, parentName)
 
     for _, child in pairs(instance:GetChildren()) do
