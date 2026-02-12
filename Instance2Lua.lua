@@ -1,5 +1,17 @@
 local __module_env = {}
 
+-- polybundle: module dev/header.lua
+__module_env["dev/header.lua"] = (function()
+--[===[ 
+	Instance2Lua (https://github.com/geringverdien/Polytoria-Instance2Lua)
+	Made by Eli <3
+
+	NOTE: Duplicate names will be assigned a random suffix which is different on every execution
+
+	If a converted instance errors on execution please open a Github issue with the error message screenshotted or typed out (usually invalid properties in APIDump)
+]===]-- 
+end)()
+
 -- polybundle: module dev/lib/Config.module.lua
 __module_env["dev/lib/Config.module.lua"] = (function()
 return {
@@ -1315,15 +1327,7 @@ end)()
 
 -- polybundle: begin dev\init.lua
 spawn(function()
---[===[ 
-	Instance2Lua (https://github.com/geringverdien/Polytoria-Instance2Lua)
-	Made by Eli <3
-
-	NOTE: Duplicate names will be assigned a random suffix which is different on every execution
-
-	If a converted instance errors on execution please open a Github issue with the error message screenshotted or typed out (usually invalid properties in APIDump)
-]===]-- 
-
+local header = __module_env["dev/header.lua"]
 CONFIG = __module_env["dev/lib/Config.module.lua"]
 
 
