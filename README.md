@@ -16,4 +16,7 @@ Allows the serialization of any group of Instances into Polytoria lua code.
 | WarningTime | Amount of time to wait before setting cursor focus on the code output box, useful if external tools are installed that unfocus the game window by default|
 
 
+## In case of script errors
+Please [create an issue](https://github.com/geringverdien/Polytoria-Instance2Lua/issues) if you encounter any bugs with the script. In *most cases* this will be due to either a **game update** or an **invalid property entry** that I missed
+
 An uncopylocked place containing the code can be found [here](https://polytoria.com/places/87647)
