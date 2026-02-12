@@ -1,4 +1,3 @@
-
 --[===[ 
 	Instance2Lua (https://github.com/geringverdien/Polytoria-Instance2Lua)
 	Made by Eli <3
@@ -436,7 +435,11 @@ end
 
 resolverFuncs = {
     -- lua types
-	["string"] = function(obj) return "\"" .. obj .. "\"" end,
+	["string"] = function(obj)
+        local s = tostring(obj)
+        s = s:gsub("\\", "\\\\"):gsub("\r\n", "\n"):gsub("\n", "\\n")
+        return string.format("%q", s) 
+    end,
     ["boolean"] = function(obj) return tostring(obj) end,
     ["number"] = function(obj) return tostring(obj) end,
     ["nil"] = function(obj) return "nil" end,
