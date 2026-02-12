@@ -22,7 +22,7 @@ resolverFuncs = {
     ["nil"] = function(obj) return "nil" end,
     
     -- custom types
-    ["Color"] = function(obj) return string.gsub(tostring(obj), "RGBA", "Color.new") end,
+    ["Color"] = function(obj) return string.gsub(tostring(obj), "RGBA", "Color.New") end,
     ["ColorRange"] = function(obj) return "ColorRange.New(" .. ResolveType(obj.min, "Color") .. ", " .. ResolveType(obj.max, "Color") .. ")" end,
     ["NumberRange"] = function(obj) return "NumberRange.New(" .. ResolveType(obj.min, "number") .. ", " .. ResolveType(obj.max, "number") .. ")" end,
     ["Vector2"] = function(obj) return string.format("Vector2.New(%g, %g)", obj.x, obj.y) end,
