@@ -20,6 +20,7 @@ local APIDump = {
 	GUI = {
 		Inherits = {},
 		Properties = {
+			Name = "string",
 			Visible = "boolean"
 		}
 	},
