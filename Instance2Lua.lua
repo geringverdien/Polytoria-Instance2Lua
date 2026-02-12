@@ -449,10 +449,10 @@ resolverFuncs = {
     ["Color"] = function(obj) return string.gsub(tostring(obj), "RGBA", "Color.new") end,
     ["ColorRange"] = function(obj) return "ColorRange.New(" .. ResolveType(obj.min, "Color") .. ", " .. ResolveType(obj.max, "Color") .. ")" end,
     ["NumberRange"] = function(obj) return "NumberRange.New(" .. ResolveType(obj.min, "number") .. ", " .. ResolveType(obj.max, "number") .. ")" end,
-    ["Vector2"] = function(obj) return string.format("Vector2.New(%d, %d)", obj.x, obj.y) end,
-    ["Vector3"] = function(obj) return string.format("Vector3.New(%d, %d, %d)", obj.x, obj.y, obj.z) end,
-	["Vector4"] = function(obj) return string.format("Vector4.New(%d, %d, %d, %d)", obj.x, obj.y, obj.z, obj.w) end,
-    ["Quaternion"] = function(obj) return string.format("Quaternion.New(%d, %d, %d, %d)", obj.x, obj.y, obj.z, obj.w) end,
+    ["Vector2"] = function(obj) return string.format("Vector2.New(%g, %g)", obj.x, obj.y) end,
+    ["Vector3"] = function(obj) return string.format("Vector3.New(%g, %g, %g)", obj.x, obj.y, obj.z) end,
+	["Vector4"] = function(obj) return string.format("Vector4.New(%g, %g, %g, %g)", obj.x, obj.y, obj.z, obj.w) end,
+    ["Quaternion"] = function(obj) return string.format("Quaternion.New(%g, %g, %g, %g)", obj.x, obj.y, obj.z, obj.w) end,
 
     -- enums
     ["AmbientSource"] = function(enumValue) return EnumHelper("AmbientSource", enumValue) end,
