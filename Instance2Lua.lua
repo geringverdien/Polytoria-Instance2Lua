@@ -472,6 +472,7 @@ resolverFuncs = {
     ["TextVerticalAlign"] = function(enumValue) return EnumHelper("TextVerticalAlign", enumValue) end,
     ["TweenType"] = function(enumValue) return EnumHelper("TweenType", enumValue) end,
     ["VerticalAlignment"] = function(enumValue) return EnumHelper("VerticalAlignment", enumValue) end,
+    ["TextAnchor"] = function(enumValue) return EnumHelper("TextAnchor", enumValue) end, -- undocumented
 }
 
 
@@ -1323,6 +1324,18 @@ local function generateUniqueName(baseName)
     return uniqueName
 end
 
+local function getRootParent(instance)
+    local result = ""
+    local current = instance
+    while current.Parent do
+        current = current.Parent
+        if current == game then return "game" .. result end
+        result = "[\"" .. current.Name .. "\"]".. result
+    end
+
+    return result
+end
+
 local function addProperties(APIPropertyList, instanceProxy, customName, APIEntry, code)
 	if #APIEntry.Inherits > 0 then
 		for _, AncestorClass in pairs(APIEntry.Inherits) do
@@ -1343,7 +1356,7 @@ local function addProperties(APIPropertyList, instanceProxy, customName, APIEntr
     return code
 end
 
-local function serializeInstance(instance, instanceType, customName)
+local function serializeInstance(instance, instanceType, customName, parentName)
     print("Serializing instance:", instance.Name, "of type:", instanceType)
     local code = ""
 	local APIEntry = APIDump[instanceType]
@@ -1352,22 +1365,24 @@ local function serializeInstance(instance, instanceType, customName)
     local instanceProxy = GetProperties[instanceType](instance)
 
 	code = code .. addProperties(properties, instanceProxy, customName, APIEntry, code)
+    code = code .. string.format("%s.Parent = %s;", customName, parentName) .. (CONFIG.Minify and "" or "\n")
     return code
 end
 
-local function serializeHierarchy(instance, instanceType, customName)
+local function serializeHierarchy(instance, instanceType, customName, parentName)
     local code = ""
     local declaration = CONFIG.LocalVars and "local " or ""
 
 	code = code .. string.format("%s%s = Instance.new(\"%s\");", declaration, customName, instanceType) .. (CONFIG.Minify and "" or "\n")
-    code = code .. serializeInstance(instance, instanceType, customName)
+    code = code .. serializeInstance(instance, instanceType, customName, parentName)
 
     for _, child in pairs(instance:GetChildren()) do
 		local uniqueChildName = (CONFIG.Minify and "_" .. randomString(3) or generateUniqueName(child.Name))
         local childType = child.ClassName
-        code = code .. serializeHierarchy(child, childType, uniqueChildName)
-        code = code .. string.format("%s.Parent = %s;", uniqueChildName, customName) .. (CONFIG.Minify and "" or "\n")
+        code = code .. serializeHierarchy(child, childType, uniqueChildName, customName)
+        
     end
+
 
     return code
 end
@@ -1408,7 +1423,7 @@ local function main()
 	assert(target, "No target instance specified in CONFIG.Target")	
     local targetType = target.ClassName
 
-    local code = serializeHierarchy(target, targetType, (CONFIG.Minify and "_" .. randomString(3) or target.Name))
+    local code = serializeHierarchy(target, targetType, (CONFIG.Minify and "_" .. randomString(3) or target.Name), getRootParent(target))
     print(code)
 	generateOutputGUI(code)
 end
